@@ -14,8 +14,24 @@ def checksum(ids):
     return two_count * three_count
 
 
+def difference(ids):
+    for i in range(len(ids)):
+        for j in range(i + 1, len(ids)):
+            diffs = 0
+            ret = ""
+            for k in range(len(ids[i])):
+                if ids[i][k] != ids[j][k]:
+                    diffs += 1
+                else:
+                    ret += ids[i][k]
+            if diffs < 2:
+                return ret
+    return ""
+
+
 if __name__ == "__main__":
     problemInput = open("./day2.txt").read()
     print(checksum(problemInput.split()))
+    print(difference(problemInput.split()))
 
 
