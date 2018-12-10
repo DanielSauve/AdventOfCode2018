@@ -3,8 +3,7 @@ def winning_player(num_players, last_marble):
     scores = [0 for _ in range(num_players)]
     turn_count = 1
     curr_pos = 1
-    done = False
-    while not done:
+    while turn_count <= last_marble:
         if turn_count % 23 != 0:
             marbles.insert(curr_pos, turn_count)
             turn_count += 1
@@ -16,8 +15,6 @@ def winning_player(num_players, last_marble):
             curr_pos -= 7
             scores[turn_count % num_players] += value
             turn_count += 1
-        if turn_count == last_marble + 1:
-            done = True
     return max(scores)
 
 
