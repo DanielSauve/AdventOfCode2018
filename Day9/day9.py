@@ -1,18 +1,31 @@
+class Node:
+    def __init__(self, val, prev, next):
+        self.val = val
+        self.prev = prev
+        self.next = next
+
+
 def winning_player(num_players, last_marble):
-    marbles = [0]
+    circle = Node(0, None, None)
+    circle.next = circle
+    circle.prev = circle
     scores = [0 for _ in range(num_players)]
     turn_count = 1
-    curr_pos = 1
     while turn_count <= last_marble:
         if turn_count % 23 != 0:
-            marbles.insert(curr_pos, turn_count)
+            curr = Node(turn_count, circle, circle.next)
+            circle.next.prev = curr
+            circle.next = curr
+            circle = curr.next
             turn_count += 1
-            curr_pos += 2
-            curr_pos = curr_pos % len(marbles)
         else:
-            value = turn_count + marbles[curr_pos - 9]
-            marbles.pop(curr_pos - 9)
-            curr_pos -= 7
+            for _ in range(8):
+                circle = circle.prev
+            value = turn_count + circle.val
+            prev = circle.prev
+            prev.next = circle.next
+            prev.next.prev = prev
+            circle = prev.next.next
             scores[turn_count % num_players] += value
             turn_count += 1
     return max(scores)
