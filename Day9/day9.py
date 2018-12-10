@@ -12,7 +12,6 @@ def winning_player(num_players, last_marble):
             curr_pos = curr_pos % len(marbles)
         else:
             value = turn_count + marbles[curr_pos - 9]
-            print(value)
             marbles.pop(curr_pos - 9)
             curr_pos -= 7
             scores[turn_count % num_players] += value
