@@ -17,7 +17,7 @@ def winning_player(num_players, last_marble):
             scores[turn_count % num_players] += value
             turn_count += 1
         if turn_count == last_marble + 1:
-            break
+            done = True
     return max(scores)
 
 
@@ -27,4 +27,4 @@ if __name__ == "__main__":
     players = int(problem_input[0])
     worth = int(problem_input[6])
     print(winning_player(players, worth))
-    # print(winning_player(players, worth * 100))
+    print(winning_player(players, worth * 100))
