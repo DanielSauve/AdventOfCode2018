@@ -1,11 +1,11 @@
 def number_of_plants(state, rules, generations):
     zero = 0
     for _ in range(generations):
-        if state[0] == '#' or state[1] == '#':
-            state.insert(0, '.')
-            state.insert(0, '.')
-            zero += 2
         new_state = []
+        if state[0] == '#' or state[1] == '#':
+            new_state.append(rules["...." + state[0]])
+            new_state.append(rules["..." + "".join(state[0:2])])
+            zero += 2
         for i in range(len(state)):
             if i == 0:
                 new_state.append(rules[".." + "".join(state[i:i + 3])])
@@ -17,8 +17,9 @@ def number_of_plants(state, rules, generations):
                 new_state.append(rules["".join(state[i - 2:i + 1]) + ".."])
             else:
                 new_state.append(rules["".join(state[i - 2:i + 3])])
-        new_state.append(rules["".join(state[-2:]) + "..."])
-        new_state.append(rules["".join(state[-1:]) + "...."])
+        if state[-1] == '#' or state[-2] == '#':
+            new_state.append(rules["".join(state[-2:]) + "..."])
+            new_state.append(rules["".join(state[-1:]) + "...."])
         state = new_state
     return pot_number_sum(state, zero)
 
