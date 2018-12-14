@@ -41,4 +41,5 @@ if __name__ == "__main__":
         rule = rule.split(" => ")
         rules[rule[0]] = rule[1]
     print(number_of_plants(state, rules, 20))
-    print(number_of_plants(state, rules, 50000000000))
+    # For context, this only works because past generation 125 it increases by 88 each generation
+    print(number_of_plants(state, rules, 200) + (50000000000 - 200) * 88)
