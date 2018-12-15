@@ -19,14 +19,7 @@ def top_ten_after(after):
 def number_before(before):
     recipes = [3, 7]
     elf_one, elf_two = 0, 1
-    while True:
-        if len(recipes) >= len(before):
-            match = True
-            for i in range(len(before)):
-                if int(before[i]) != recipes[-len(before) + i]:
-                    match = False
-            if match:
-                return len(recipes) - len(before)
+    while before not in "".join(map(lambda x: str(x), recipes[-1 - len(before):])):
         next_val = recipes[elf_one] + recipes[elf_two]
         if next_val >= 10:
             recipes.append(next_val // 10)
@@ -35,6 +28,7 @@ def number_before(before):
             recipes.append(next_val)
         elf_one = (elf_one + recipes[elf_one] + 1) % len(recipes)
         elf_two = (elf_two + recipes[elf_two] + 1) % len(recipes)
+    return len(recipes) - len(before)
 
 
 if __name__ == "__main__":
